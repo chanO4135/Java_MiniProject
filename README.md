@@ -34,12 +34,12 @@
 
 <h2>Project UML Class Diagram </h2>
 
-![alt text](image.png)
+![alt text](images/image.png)
 
 <h2>구현 화면</h2>
 <p>게임 시작 전 </p>
 
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 <h2>🚨예외 처리(Exceptions)</h2>
 
