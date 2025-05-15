@@ -108,27 +108,25 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 ```mermaid
 flowchart TD
-    A["방향키 입력"] --> B["actionPerformed()"]
-    B --> C["updateGame()"]
-    C --> D["snake.move()"]
-    D --> E{"충돌 발생?"}
-    E -->|Yes| F["throw InvalidMoveException"]
-    E -->|No| G{"음식 먹음?"}
-    G -->|Yes| H["점수 +1, snake.grow()"]
-    H --> I{"점수 ≥ 10?"}
-    I -->|Yes| J["throw GameWinException"]
-    I -->|No| K["게임 계속"]
-    G -->|No| K
+    A[방향키 입력] --> B[snake.move()]
+    B --> C{충돌 발생?}
+    C -->|Yes| D[throw InvalidMoveException]
+    C -->|No| E{음식 먹음?}
+    E -->|Yes| F[점수 +1, snake.grow()]
+    F --> G{점수 ≥ 10?}
+    G -->|Yes| H[throw GameWinException]
+    G -->|No| I[게임 계속]
+    E -->|No| I
 
-    F --> L["catch InvalidMoveException"]
-    L --> M["목숨 -1, 깜빡임"]
-    M --> N{"목숨 ≤ 0?"}
-    N -->|Yes| O["gameOver = true"]
-    N -->|No| P["게임 계속"]
+    D --> J[catch InvalidMoveException]
+    J --> K[목숨 -1, 깜빡임]
+    K --> L{목숨 0?}
+    L -->|Yes| M[gameOver = true]
+    L -->|No| I
 
-    J --> Q["catch GameWinException"]
-    Q --> R["gameWon = true"]
-    R --> S["timer.stop()"]
+    H --> N[catch GameWinException]
+    N --> O[gameWon = true → timer.stop()]
+
 
 ```
 
@@ -170,8 +168,6 @@ flowchart TD
 ## 🎥 시연 영상
 
 > 아래 이미지를 클릭하거나 연결된 영상을 통해 게임 흐름을 확인할 수 있습니다.
-
-[![시연 영상 보기](images/image.png)](영상_링크_또는_유튜브_주소)
 
 ※ `영상_링크_또는_유튜브_주소` 부분을 실제 영상 링크로 교체해 주세요.
 
