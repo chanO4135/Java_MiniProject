@@ -1,60 +1,40 @@
-<h1>Java_MiniProject</h1>
-<p>Swing, JPanel, JFrame 을 활용한 지렁이 게임</p>
+# 🐍 Java Mini Project: 지렁이 게임 (Snake Game)
 
-<h2> 구현된 주요 기능</h2>
-기본 게임 플레이:
+> Java Swing 기반 클래식 지렁이 게임  
+> `JPanel`, `JFrame` 등을 활용한 직관적인 UI와 구조적인 예외 처리 구현
 
-뱀이 방향키(↑ ↓ ← →)로 조종 가능
+---
 
-음식(빨간색 원)을 먹으면 뱀의 길이가 증가하고 점수 상승
+## 🎮 주요 기능
 
-게임 클리어 조건(점수 10점 이상) 달성 시 승리 처리
+- 🎮 **뱀 조작**: 방향키 `↑ ↓ ← →`로 이동
+- 🍎 **음식(빨간 원)**: 먹을 때마다 길이 증가, 점수 +1, 속도 상승
+- 🧱 **장애물(파란 블록)**: 주기적으로 생성되며 충돌 시 목숨 감소
+- ❤️ **목숨 시스템**: 하트 3개, 모두 잃으면 게임 오버
+- 🏁 **승리 조건**: 점수 10점 달성 시 승리 처리
+- ✨ **시각 효과**: 충돌 시 뱀 깜빡임, 시작/오버/승리 화면 제공
+- 🎨 **배경**: 그리드(격자) 스타일
+- 🔄 **게임 제어**: 점진적 속도 상승, 재시작 기능 포함
 
-게임 요소:
+---
 
-장애물 시스템(파란색 블록) - 주기적으로 생성되며 충돌 시 목숨 감소
-
-목숨 시스템(하트 아이콘) - 총 3개의 목숨, 모두 잃으면 게임 오버
-
-점수 시스템 - 음식 먹을 때마다 1점 증가
-
-시각적 효과:
-
-충돌 시 뱀 깜빡임 효과
-
-시작 화면, 게임 오버 화면, 승리 화면 구분
-
-그리드(격자) 배경
-
-게임 제어:
-
-게임 속도 점진적 증가(음식 먹을 때마다 속도 증가)
-
-재시작 기능
-
-<h2>Project UML Class Diagram </h2>
-
-![alt text](images/image.png)
-
-## 🔄 상속 및 인터페이스 구현
-
-이 프로젝트에서 클래스들은 다음 인터페이스를 구현하거나 상속받아 주요 기능을 수행합니다.
+## 🧩 클래스 구조 및 인터페이스
 
 ```java
-// 뱀 움직임 구현용 인터페이스
+// 뱀의 움직임을 정의하는 인터페이스
 public interface Movable {
     void move();
 }
 
-// Snake 클래스는 Movable 인터페이스 구현
+// Snake 클래스는 Movable을 구현
 public class Snake implements Movable {
     @Override
     public void move() {
-        // 뱀 이동 처리
+        // 이동 로직 구현
     }
 }
 
-// 게임 패널은 타이머와 키보드 이벤트 처리
+// GamePanel은 게임의 메인 로직을 처리하는 클래스
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -63,97 +43,97 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // 키보드 입력 처리
+        // 방향키 입력 처리
     }
 
-    // 나머지 키 이벤트 메서드들...
+    // 나머지 키보드 이벤트 메서드 생략
 }
+
 ```
 
-<h2>구현 화면</h2>
-<h3>게임 시작 전</h3>
+## ⚠️ 예외 처리 흐름
 
-![alt text](images/image-1.png)
+### ✅ GameWinException
 
-<p>게임규칙과 키를 알려주는 메세지를 보여줍니다.</p>
+- **발생 조건**: 점수 10점 이상 도달 시
+- **처리 내용**: `gameWon = true`, 타이머 정지, 승리 메시지 출력
 
-<h3> 게임 플레이 </h3>
+### ❌ InvalidMoveException
 
-![alt text](images/image-2.png)
+- **발생 조건**: 벽, 장애물, 자기 몸과의 충돌
+- **처리 내용**: 목숨 -1, 뱀 깜빡임 효과, 목숨 0일 경우 `gameOver = true`
 
-<p>시간이 지나면 장애물이 늘어나고 장애물을 피해 아이템을 획득합니다.</p>
+---
 
-<h3>🚨예외 처리 흐름도(Exceptions)</h3>
+## 📈 예외 처리 흐름도 (Mermaid)
 
 ```mermaid
 flowchart TD
-    A["사용자 방향키 입력"] --> B["actionPerformed() 호출"]
-    B --> C["manager.updateGame()"]
+    A["방향키 입력"] --> B["actionPerformed()"]
+    B --> C["updateGame()"]
     C --> D["snake.move()"]
     D --> E{"충돌 발생?"}
     E -->|Yes| F["throw InvalidMoveException"]
-    E -->|No| G["음식 먹었는가?"]
-
-    G -->|Yes| H["snake.grow(), 점수+1"]
-    H --> I{"점수 >= 10?"}
+    E -->|No| G{"음식 먹음?"}
+    G -->|Yes| H["점수 +1, snake.grow()"]
+    H --> I{"점수 ≥ 10?"}
     I -->|Yes| J["throw GameWinException"]
-    I -->|No| K["게임 계속 진행"]
-
+    I -->|No| K["게임 계속"]
     G -->|No| K
 
-    %% 예외 처리
     F --> L["catch InvalidMoveException"]
-    L --> M["목숨 -1, 깜빡임 처리"]
-    M --> N{"목숨 <= 0?"}
+    L --> M["목숨 -1, 깜빡임"]
+    M --> N{"목숨 ≤ 0?"}
     N -->|Yes| O["gameOver = true"]
-    N -->|No| P["게임 계속 진행"]
+    N -->|No| P["게임 계속"]
 
     J --> Q["catch GameWinException"]
     Q --> R["gameWon = true"]
     R --> S["timer.stop()"]
+
 ```
 
-⚙️ 예외 처리 흐름 설명
-이 Snake 게임은 명확한 예외 기반 흐름 제어를 통해 게임 상태를 처리합니다.
+## 🖼️ 게임 화면
 
-✅ GameWinException
-발생 위치: updateGame() 내부
+### 🟢 시작 화면
 
-상황: 게임 승리 조건(예: 모든 미션 수행 혹은 일정 점수 도달 등)이 만족되었을 때 발생
+> 게임 시작 전, 게임 규칙 및 조작 키를 안내하는 화면입니다.
 
-처리 내용:
+![시작 화면](images/image-1.png)
 
-gameWon 상태를 true로 설정
+---
 
-타이머를 정지하여 게임을 종료
+### 🔵 게임 플레이
 
-승리 메시지 출력
+> 음식(빨간 원)을 먹고 장애물(파란 블록)을 피하며 점수를 올립니다.  
+> 시간이 지날수록 장애물이 증가하고, 난이도가 점차 상승합니다.
 
-🎯 목적: 게임이 명확히 승리 조건으로 종료되었음을 처리
+![게임 플레이](images/image-2.png)
 
-❌ InvalidMoveException
-발생 위치: updateGame() 내부
+---
 
-상황: 뱀이 벽, 몸, 장애물 등과 충돌한 경우
+### ❌ 게임 오버 화면
 
-처리 내용:
+> 목숨(하트)이 모두 소진되면 게임 오버 화면이 출력됩니다.
 
-목숨(lives) 1 감소
+![게임 오버](images/image-4.png)
 
-isBlinking 상태로 충돌 위치 깜빡이기 시작
+---
 
-목숨이 0 이하가 되면 gameOver = true로 게임 종료
+### 🏆 게임 승리 화면
 
-💥 목적: 패배 조건일 경우를 감지하고, 생명 기반 로직으로 게임을 이어가기
+> 점수 10점을 달성하면 승리 처리되어 축하 화면이 나타납니다.
 
-## 🖼 게임 결과 예시
+![게임 승리](images/image-3.png)
 
-- 게임 OVER 화면
-  ![alt text](image-4.png.png)
+---
 
-- 게임 승리 시 화면  
-  ![alt text](image-3.png)
+## 🎥 시연 영상
 
-<h2>시연 영상</h2>
+> 아래 이미지를 클릭하거나 연결된 영상을 통해 게임 흐름을 확인할 수 있습니다.
 
-![alt text](image.png)
+[![시연 영상 보기](images/image.png)](영상_링크_또는_유튜브_주소)
+
+※ `영상_링크_또는_유튜브_주소` 부분을 실제 영상 링크로 교체해 주세요.
+
+---
