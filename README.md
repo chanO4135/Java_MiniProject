@@ -20,7 +20,7 @@
 
 ## 🧩 클래스UML 구조 및 인터페이스
 
-![alt text](images/image.png.png)
+![alt text](images/image.png)
 
 ```java
 // 뱀의 움직임을 정의하는 인터페이스
