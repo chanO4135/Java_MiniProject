@@ -18,7 +18,44 @@
 
 ---
 
-## 🧩 클래스 구조 및 인터페이스
+## 🧩 클래스UML 구조 및 인터페이스
+
+classDiagram
+class GamePanel { - Timer timer - Snake snake - List<Obstacle> obstacles - List<Food> foods - int score - int life - boolean gameOver - boolean gameWon + actionPerformed(e: ActionEvent) + keyPressed(e: KeyEvent) + paintComponent(g: Graphics)
+}
+
+    class Movable {
+        <<interface>>
+        + move()
+    }
+
+    class Snake {
+        - List<Point> body
+        - Direction direction
+        + move()
+        + grow()
+        + checkSelfCollision() : boolean
+    }
+
+    class Obstacle {
+        - Point position
+        + getPosition() : Point
+    }
+
+    class Food {
+        - Point position
+        + getPosition() : Point
+    }
+
+    class InvalidMoveException
+    class GameWinException
+
+    Snake --> Movable
+    GamePanel --> Snake
+    GamePanel --> Obstacle
+    GamePanel --> Food
+    GamePanel --> InvalidMoveException
+    GamePanel --> GameWinException
 
 ```java
 // 뱀의 움직임을 정의하는 인터페이스
