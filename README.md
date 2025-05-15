@@ -20,7 +20,8 @@
 
 ## 🧩 클래스UML 구조 및 인터페이스
 
-![alt text](images/image.png)
+> 객체지향 설계 원칙을 기반으로 한 클래스 간 관계 구조와 인터페이스 구현 예시입니다.
+> ![alt text](images/image.png)
 
 ```java
 // 뱀의 움직임을 정의하는 인터페이스
@@ -52,6 +53,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 }
 
 ```
+
+---
 
 ## ⚠️ 예외 처리 흐름
 
