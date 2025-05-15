@@ -37,9 +37,9 @@
 ![alt text](image.png)
 
 <h2>구현 화면</h2>
+<p>게임 시작 전 </p>
 
-![alt text](image.png)
-
+![alt text](image-1.png)
 
 <h2>🚨예외 처리(Exceptions)</h2>
 
@@ -66,8 +66,6 @@ Snake 클래스에서 implements Movable
 
 move() 메서드 구현 필수
 
-
 <h2>시연 영상</h2>
 
 ![alt text](image.png)
-
