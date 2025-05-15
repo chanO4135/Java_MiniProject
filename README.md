@@ -43,25 +43,82 @@
 
 <p>게임규칙과 키를 알려주는 메세지를 보여줍니다.</p>
 
-<h2> 게임 플레이 </h2>
+<h3> 게임 플레이 </h3>
 
-<h2>🚨예외 처리(Exceptions)</h2>
+![alt text](images/image-2.png)
 
-InvalidMoveException:
+<p>시간이 지나면 장애물이 늘어나고 장애물을 피해 아이템을 획득합니다.</p>
 
-Snake 클래스에서 발생
+<h3>🚨예외 처리(Exceptions)</h3>
 
-벽 충돌(checkWallCollision), 자기 몸 충돌(checkBodyCollision), 장애물 충돌(checkObstacleCollision) 시 발생
+```mermaid
+flowchart TD
+    A[사용자 방향키 입력] --> B[actionPerformed() 호출]
+    B --> C[manager.updateGame()]
 
-GameManager.updateGame()에서 처리 → 목숨 감소
+    C --> D[snake.move()]
+    D -->|충돌 시| E[throw InvalidMoveException]
 
-GameWinException:
+    C --> F{음식 위치 == snake 머리?}
+    F -->|Yes| G[snake.grow() & 점수+1]
+    G --> H{점수 >= 10?}
+    H -->|Yes| I[throw GameWinException]
+    H -->|No| J[게임 계속 진행]
 
-GameManager.updateGame()에서 발생
+    F -->|No| J
 
-점수가 10점 이상일 때 발생
+    %% 예외 처리 블록
+    E --> K[catch InvalidMoveException]
+    K --> L[목숨 -1, 깜빡임 처리]
+    L --> M{목숨 <= 0?}
+    M -->|Yes| N[gameOver = true]
+    M -->|No| O[계속 진행]
 
-GamePanel1.actionPerformed()에서 처리 → 승리 화면 표시
+    I --> P[catch GameWinException]
+    P --> Q[gameWon = true]
+    Q --> R[timer.stop()]
+```
+
+⚙️ 예외 처리 흐름 설명
+이 Snake 게임은 명확한 예외 기반 흐름 제어를 통해 게임 상태를 처리합니다.
+
+✅ GameWinException
+발생 위치: updateGame() 내부
+
+상황: 게임 승리 조건(예: 모든 미션 수행 혹은 일정 점수 도달 등)이 만족되었을 때 발생
+
+처리 내용:
+
+gameWon 상태를 true로 설정
+
+타이머를 정지하여 게임을 종료
+
+승리 메시지 출력
+
+🎯 목적: 게임이 명확히 승리 조건으로 종료되었음을 처리
+
+❌ InvalidMoveException
+발생 위치: updateGame() 내부
+
+상황: 뱀이 벽, 몸, 장애물 등과 충돌한 경우
+
+처리 내용:
+
+목숨(lives) 1 감소
+
+isBlinking 상태로 충돌 위치 깜빡이기 시작
+
+목숨이 0 이하가 되면 gameOver = true로 게임 종료
+
+💥 목적: 패배 조건일 경우를 감지하고, 생명 기반 로직으로 게임을 이어가기
+
+## 🖼 게임 결과 예시
+
+- 게임 OVER 화면
+  ![alt text](image-4.png.png)
+
+- 게임 승리 시 화면  
+  ![alt text](image-3.png)
 
 <h2>🔄 상속(Implements) 관계</h2>
 Movable 인터페이스:
