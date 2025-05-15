@@ -20,44 +20,7 @@
 
 ## 🧩 클래스UML 구조 및 인터페이스
 
-```mermaid
-classDiagram
-class GamePanel { - Timer timer - Snake snake - List<Obstacle> obstacles - List<Food> foods - int score - int life - boolean gameOver - boolean gameWon + actionPerformed(e: ActionEvent) + keyPressed(e: KeyEvent) + paintComponent(g: Graphics)
-}
-
-    class Movable {
-        <<interface>>
-        + move()
-    }
-
-    class Snake {
-        - List<Point> body
-        - Direction direction
-        + move()
-        + grow()
-        + checkSelfCollision() : boolean
-    }
-
-    class Obstacle {
-        - Point position
-        + getPosition() : Point
-    }
-
-    class Food {
-        - Point position
-        + getPosition() : Point
-    }
-
-    class InvalidMoveException
-    class GameWinException
-
-    Snake --> Movable
-    GamePanel --> Snake
-    GamePanel --> Obstacle
-    GamePanel --> Food
-    GamePanel --> InvalidMoveException
-    GamePanel --> GameWinException
-```
+![alt text](images/image.png.png)
 
 ```java
 // 뱀의 움직임을 정의하는 인터페이스
@@ -106,27 +69,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 ## 📈 예외 처리 흐름도 (Mermaid)
 
-```mermaid
-flowchart TD
-    A[방향키 입력] --> B[snake.move()]
-    B --> C{충돌 발생?}
-    C -->|Yes| D[InvalidMoveException 발생]
-    C -->|No| E{음식 먹음?}
-    E -->|Yes| F[점수 +1 및 성장]
-    F --> G{점수 10 이상?}
-    G -->|Yes| H[GameWinException 발생]
-    G -->|No| I[게임 계속]
-    E -->|No| I
-
-    D --> J[예외 처리: 목숨 -1, 깜빡임]
-    J --> K{목숨 0?}
-    K -->|Yes| L[gameOver = true]
-    K -->|No| I
-
-    H --> M[예외 처리: 승리 상태 처리]
-    M --> N[gameWon = true]
-    N --> O[timer 중지]
-```
+![alt text](images/image-5.png)
 
 ## 🖼️ 게임 화면
 
