@@ -110,22 +110,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 flowchart TD
     A[방향키 입력] --> B[snake.move()]
     B --> C{충돌 발생?}
-    C -->|Yes| D[throw InvalidMoveException]
+    C -->|Yes| D[InvalidMoveException 발생]
     C -->|No| E{음식 먹음?}
-    E -->|Yes| F[점수 +1, snake.grow()]
-    F --> G{점수 ≥ 10?}
-    G -->|Yes| H[throw GameWinException]
+    E -->|Yes| F[점수 +1 및 성장]
+    F --> G{점수 10 이상?}
+    G -->|Yes| H[GameWinException 발생]
     G -->|No| I[게임 계속]
     E -->|No| I
 
-    D --> J[catch InvalidMoveException]
-    J --> K[목숨 -1, 깜빡임]
-    K --> L{목숨 0?}
-    L -->|Yes| M[gameOver = true]
-    L -->|No| I
+    D --> J[예외 처리: 목숨 -1, 깜빡임]
+    J --> K{목숨 0?}
+    K -->|Yes| L[gameOver = true]
+    K -->|No| I
 
-    H --> N[catch GameWinException]
-    N --> O[gameWon = true → timer.stop()]
+    H --> M[예외 처리: 승리 상태 처리]
+    M --> N[gameWon = true]
+    N --> O[timer 중지]
 ```
 
 ## 🖼️ 게임 화면
