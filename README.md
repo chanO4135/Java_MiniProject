@@ -20,6 +20,7 @@
 
 ## 🧩 클래스UML 구조 및 인터페이스
 
+```mermaid
 classDiagram
 class GamePanel { - Timer timer - Snake snake - List<Obstacle> obstacles - List<Food> foods - int score - int life - boolean gameOver - boolean gameWon + actionPerformed(e: ActionEvent) + keyPressed(e: KeyEvent) + paintComponent(g: Graphics)
 }
@@ -56,6 +57,7 @@ class GamePanel { - Timer timer - Snake snake - List<Obstacle> obstacles - List<
     GamePanel --> Food
     GamePanel --> InvalidMoveException
     GamePanel --> GameWinException
+```
 
 ```java
 // 뱀의 움직임을 정의하는 인터페이스
