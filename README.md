@@ -37,9 +37,13 @@
 ![alt text](images/image.png)
 
 <h2>구현 화면</h2>
-<p>게임 시작 전 </p>
+<h3>게임 시작 전</h3>
 
 ![alt text](images/image-1.png)
+
+<p>게임규칙과 키를 알려주는 메세지를 보여줍니다.</p>
+
+<h2> 게임 플레이 </h2>
 
 <h2>🚨예외 처리(Exceptions)</h2>
 
