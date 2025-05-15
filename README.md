@@ -126,8 +126,6 @@ flowchart TD
 
     H --> N[catch GameWinException]
     N --> O[gameWon = true → timer.stop()]
-
-
 ```
 
 ## 🖼️ 게임 화면
