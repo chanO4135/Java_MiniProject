@@ -71,6 +71,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 ![alt text](images/image-5.png)
 
+## 🎥 게임 예외 메시지 시연
+
+### 🏆 게임 승리 시
+
+![alt text](images/Animation_GameWin.gif)
+
+### 💀 게임 오버 시
+
+![alt text](images/Animation_GameOver.gif)
+
 ## 🖼️ 게임 화면
 
 ### 🟢 시작 화면
@@ -103,13 +113,3 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 > 점수 10점을 달성하면 승리 처리되어 축하 화면이 나타납니다.
 
 ![게임 승리](images/image-3.png)
-
----
-
-## 🎥 시연 영상
-
-> 아래 이미지를 클릭하거나 연결된 영상을 통해 게임 흐름을 확인할 수 있습니다.
-
-※ `영상_링크_또는_유튜브_주소` 부분을 실제 영상 링크로 교체해 주세요.
-
----
