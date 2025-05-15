@@ -36,6 +36,40 @@
 
 ![alt text](images/image.png)
 
+## 🔄 상속 및 인터페이스 구현
+
+이 프로젝트에서 클래스들은 다음 인터페이스를 구현하거나 상속받아 주요 기능을 수행합니다.
+
+````java
+// 뱀 움직임 구현용 인터페이스
+public interface Movable {
+    void move();
+}
+
+// Snake 클래스는 Movable 인터페이스 구현
+public class Snake implements Movable {
+    @Override
+    public void move() {
+        // 뱀 이동 처리
+    }
+}
+
+// 게임 패널은 타이머와 키보드 이벤트 처리
+public class GamePanel extends JPanel implements ActionListener, KeyListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // 타이머 이벤트 처리
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // 키보드 입력 처리
+    }
+
+    // 나머지 키 이벤트 메서드들...
+}
+
+
 <h2>구현 화면</h2>
 <h3>게임 시작 전</h3>
 
@@ -77,7 +111,7 @@ flowchart TD
     J --> Q["catch GameWinException"]
     Q --> R["gameWon = true"]
     R --> S["timer.stop()"]
-```
+````
 
 ⚙️ 예외 처리 흐름 설명
 이 Snake 게임은 명확한 예외 기반 흐름 제어를 통해 게임 상태를 처리합니다.
@@ -119,13 +153,6 @@ isBlinking 상태로 충돌 위치 깜빡이기 시작
 
 - 게임 승리 시 화면  
   ![alt text](image-3.png)
-
-<h2>🔄 상속(Implements) 관계</h2>
-Movable 인터페이스:
-
-Snake 클래스에서 implements Movable
-
-move() 메서드 구현 필수
 
 <h2>시연 영상</h2>
 
