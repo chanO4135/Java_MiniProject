@@ -40,7 +40,7 @@
 
 이 프로젝트에서 클래스들은 다음 인터페이스를 구현하거나 상속받아 주요 기능을 수행합니다.
 
-````java
+```java
 // 뱀 움직임 구현용 인터페이스
 public interface Movable {
     void move();
@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     // 나머지 키 이벤트 메서드들...
 }
-
+```
 
 <h2>구현 화면</h2>
 <h3>게임 시작 전</h3>
@@ -111,7 +111,7 @@ flowchart TD
     J --> Q["catch GameWinException"]
     Q --> R["gameWon = true"]
     R --> S["timer.stop()"]
-````
+```
 
 ⚙️ 예외 처리 흐름 설명
 이 Snake 게임은 명확한 예외 기반 흐름 제어를 통해 게임 상태를 처리합니다.
