@@ -49,34 +49,34 @@
 
 <p>시간이 지나면 장애물이 늘어나고 장애물을 피해 아이템을 획득합니다.</p>
 
-<h3>🚨예외 처리(Exceptions)</h3>
+<h3>🚨예외 처리 흐름도(Exceptions)</h3>
 
 ```mermaid
 flowchart TD
-    A[사용자 방향키 입력] --> B[actionPerformed() 호출]
-    B --> C[manager.updateGame()]
+    A["사용자 방향키 입력"] --> B["actionPerformed() 호출"]
+    B --> C["manager.updateGame()"]
+    C --> D["snake.move()"]
+    D --> E{"충돌 발생?"}
+    E -->|Yes| F["throw InvalidMoveException"]
+    E -->|No| G["음식 먹었는가?"]
 
-    C --> D[snake.move()]
-    D -->|충돌 시| E[throw InvalidMoveException]
+    G -->|Yes| H["snake.grow(), 점수+1"]
+    H --> I{"점수 >= 10?"}
+    I -->|Yes| J["throw GameWinException"]
+    I -->|No| K["게임 계속 진행"]
 
-    C --> F{음식 위치 == snake 머리?}
-    F -->|Yes| G[snake.grow() & 점수+1]
-    G --> H{점수 >= 10?}
-    H -->|Yes| I[throw GameWinException]
-    H -->|No| J[게임 계속 진행]
+    G -->|No| K
 
-    F -->|No| J
+    %% 예외 처리
+    F --> L["catch InvalidMoveException"]
+    L --> M["목숨 -1, 깜빡임 처리"]
+    M --> N{"목숨 <= 0?"}
+    N -->|Yes| O["gameOver = true"]
+    N -->|No| P["게임 계속 진행"]
 
-    %% 예외 처리 블록
-    E --> K[catch InvalidMoveException]
-    K --> L[목숨 -1, 깜빡임 처리]
-    L --> M{목숨 <= 0?}
-    M -->|Yes| N[gameOver = true]
-    M -->|No| O[계속 진행]
-
-    I --> P[catch GameWinException]
-    P --> Q[gameWon = true]
-    Q --> R[timer.stop()]
+    J --> Q["catch GameWinException"]
+    Q --> R["gameWon = true"]
+    R --> S["timer.stop()"]
 ```
 
 ⚙️ 예외 처리 흐름 설명
