@@ -70,7 +70,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 ---
 
-## 📈 예외 처리 흐름도 (Mermaid)
+## 📈 예외 처리 흐름도
 
 ![alt text](images/image-5.png)
 
